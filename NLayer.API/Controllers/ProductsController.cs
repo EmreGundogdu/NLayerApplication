@@ -13,12 +13,19 @@ namespace NLayer.API.Controllers
     {
         readonly IMapper _mapper;
         readonly IService<Product> _service;
-
-        public ProductsController(IMapper mapper, IService<Product> service)
+        readonly IProductService _productService;
+        public ProductsController(IMapper mapper, IService<Product> service, IProductService productService)
         {
             _mapper = mapper;
             _service = service;
+            _productService = productService;
         }
+        [HttpGet("GetProductsWithCategory")]
+        public async Task<IActionResult> GetProductsWithCategory()
+        {
+            return CreateActionResult(await _productService.GetProductsWithCategory());
+        }
+        [HttpGet]
         public async Task<IActionResult> All()
         {
             var products = await _service.GetAllAsync();

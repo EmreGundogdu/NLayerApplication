@@ -4,6 +4,7 @@ using NLayer.Core.DTOs;
 
 namespace NLayer.API.Controllers
 {
+    [ApiController]
     public class CustomBaseController : ControllerBase
     {
         [NonAction]
