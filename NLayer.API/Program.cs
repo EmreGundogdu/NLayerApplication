@@ -23,7 +23,7 @@ builder.Services.AddControllers(opt => opt.Filters.Add(new ValidateFilterAttribu
 builder.Services.Configure<ApiBehaviorOptions>(opt =>
 {
     opt.SuppressModelStateInvalidFilter = true; //Filter sonucunda geriye dönen modeli kapattýk. Ve filtre modelimizi dönmemizi saðlar
-})
+});
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
