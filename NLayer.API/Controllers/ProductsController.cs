@@ -7,7 +7,6 @@ using NLayer.Core.Services;
 
 namespace NLayer.API.Controllers
 {
-
     public class ProductsController : CustomBaseController
     {
         readonly IMapper _mapper;
