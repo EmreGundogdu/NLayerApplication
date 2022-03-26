@@ -34,7 +34,7 @@ namespace NLayer.Caching
 
             if (!_memoryCache.TryGetValue(CacheProductKey, out _))
             {
-                _memoryCache.Set(CacheProductKey, _repository.GetAll().ToList());
+                _memoryCache.Set(CacheProductKey, _repository.GetProductsWithCategory());
             }
         }
 
@@ -75,11 +75,11 @@ namespace NLayer.Caching
             return Task.FromResult(product);
         }
 
-        public async Task<CustomResponseDTO<List<ProductWithCategoryDTO>>> GetProductsWithCategory()
+        public Task<CustomResponseDTO<List<ProductWithCategoryDTO>>> GetProductsWithCategory()
         {
-            var products = await _repository.GetProductsWithCategory();
+            var products = _memoryCache.Get<IEnumerable<Product>>(CacheProductKey);
             var productsWithCategoryDto = _mapper.Map<List<ProductWithCategoryDTO>>(products);
-            return CustomResponseDTO<List<ProductWithCategoryDTO>>.Success(200, productsWithCategoryDto);
+            return Task.FromResult(CustomResponseDTO<List<ProductWithCategoryDTO>>.Success(200, productsWithCategoryDto));
         }
 
         public async Task RemoveAsync(Product entity)
