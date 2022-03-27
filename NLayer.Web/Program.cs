@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using NLayer.Repository;
 using NLayer.Service.Mapping;
 using NLayer.Service.Validations;
+using NLayer.Web;
 using NLayer.Web.Modules;
 using System.Reflection;
 
@@ -22,6 +23,7 @@ builder.Services.AddDbContext<AppDbContext>(p =>
         opt.MigrationsAssembly(Assembly.GetAssembly(typeof(AppDbContext)).GetName().Name);
     });
 });
+builder.Services.AddScoped(typeof(NotFoundFilter<>));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

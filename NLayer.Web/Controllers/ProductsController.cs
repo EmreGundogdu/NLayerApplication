@@ -64,5 +64,11 @@ namespace NLayer.Web.Controllers
             ViewBag.categories = new SelectList(categoriesDto, "Id", "Name", productDTO.CategoryId);
             return View(productDTO);
         }
+        public async Task<IActionResult> Remove(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            await _productService.RemoveAsync(product);
+            return RedirectToAction(nameof(Index));
+        }
     }
 }
