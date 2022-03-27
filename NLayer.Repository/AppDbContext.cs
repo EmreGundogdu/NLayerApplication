@@ -29,16 +29,20 @@ namespace NLayer.Repository
                             }
                         case EntityState.Modified:
                             {
-                                Entry(entityReference).Property(x => x.CreatedDate).IsModified = false;
                                 entityReference.UpdateDate = DateTime.Now;
                                 break;
                             }
+
+
                     }
-                };
+                }
+
             }
+            return base.SaveChanges();
         }
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
+
             foreach (var item in ChangeTracker.Entries())
             {
                 if (item.Entity is BaseEntity entityReference)
@@ -52,12 +56,17 @@ namespace NLayer.Repository
                             }
                         case EntityState.Modified:
                             {
+                                Entry(entityReference).Property(x => x.CreatedDate).IsModified = false;
+
                                 entityReference.UpdateDate = DateTime.Now;
                                 break;
                             }
+
+
                     }
                 }
             }
+            return base.SaveChangesAsync(cancellationToken);
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
