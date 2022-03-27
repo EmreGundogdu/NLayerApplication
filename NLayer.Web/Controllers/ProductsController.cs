@@ -27,13 +27,12 @@ namespace NLayer.Web.Controllers
         {
             var categories = await _categoryService.GetAllAsync();
             var categoriesDto = _mapper.Map<List<CategoryDTO>>(categories.ToList());
-            ViewBag.categorsi = new SelectList(categoriesDto, "Id", "Name");
+            ViewBag.categories = new SelectList(categoriesDto, "Id", "Name");
             return View();
         }
         [HttpPost]
         public async Task<IActionResult> Save(ProductDTO productDTOs)
         {
-
             if (ModelState.IsValid)
             {
                 await _productService.AddAsync(_mapper.Map<Product>(productDTOs));
@@ -41,8 +40,29 @@ namespace NLayer.Web.Controllers
             }
             var categories = await _categoryService.GetAllAsync();
             var categoriesDto = _mapper.Map<List<CategoryDTO>>(categories.ToList());
-            ViewBag.categorsi = new SelectList(categoriesDto, "Id", "Name");
+            ViewBag.categories = new SelectList(categoriesDto, "Id", "Name");
             return View();
+        }
+        public async Task<IActionResult> Update(int id)
+        {
+            var product = await _productService.GetByIdAsync(id);
+            var categories = await _categoryService.GetAllAsync();
+            var categoriesDto = _mapper.Map<List<CategoryDTO>>(categories.ToList());
+            ViewBag.categories = new SelectList(categoriesDto, "Id", "Name", product.CategoryId);
+            return View(_mapper.Map<ProductDTO>(product));
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(ProductDTO productDTO)
+        {
+            if (ModelState.IsValid)
+            {
+                await _productService.UpdateAsync(_mapper.Map<Product>(productDTO));
+                return RedirectToAction(nameof(Index));
+            }
+            var categories = await _categoryService.GetAllAsync();
+            var categoriesDto = _mapper.Map<List<CategoryDTO>>(categories.ToList());
+            ViewBag.categories = new SelectList(categoriesDto, "Id", "Name", productDTO.CategoryId);
+            return View(productDTO);
         }
     }
 }
