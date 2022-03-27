@@ -3,12 +3,7 @@ using NLayer.Core.IUnitOfWorks;
 using NLayer.Core.Repositories;
 using NLayer.Core.Services;
 using NLayer.Service.Excepitons;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace NLayer.Service.Services
 {
