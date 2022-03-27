@@ -1,4 +1,5 @@
 ﻿@model List<ProductWithCategoryDTO>
+<a asp-action="Save" asp-controller="Products" class="btn btn-primary">Save Product</a>
 <table class="table table-striped">
     <thead>
         <tr>
@@ -25,6 +26,6 @@
                 <td><a asp-controller="Products" asp-action="Update" asp-route-id="@item.Id" class="btn btn-warning">Update</a></td>
                 <td><a asp-controller="Products" asp-action="Remove" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
             </tr>
-        }        
+        }
     </tbody>
 </table>
