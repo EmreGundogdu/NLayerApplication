@@ -31,7 +31,7 @@ namespace NLayer.Web
                 return;
             }
             var errorViewModel = new ErrorViewModel();
-            errorViewModel.Error.Add($"{typeof(T).Name}({id}) is missing.");
+            errorViewModel.Errors.Add($"{typeof(T).Name}({id}) is missing.");
             context.Result = new RedirectToActionResult("Error", "Home", errorViewModel);
         }
     }
